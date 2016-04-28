@@ -35,24 +35,16 @@ public:
         update(toCv(img));
     }
     void update(const Mat& mat) {
-        //>> Tue Apr 19 6:52 PM
         profileFinder.update(mat);
         
         if (profileFinder.size()) {
-//            roi = profileFinder.getObject(0);
-//            float lowerRatio = .75;
-//            roi.y += roi.height * (1 - lowerRatio);
-//            roi.height *= lowerRatio;
-//            cv::Mat faceMat(mat, ofxCv::toCv(roi)); // C++: Mat::Mat(const Mat& m, const Rect& roi)
             cv::Mat faceMat = mat;
             
             leftEarFinder.update(faceMat);
             rightEarFinder.update(faceMat);
         }
-        //>>
     }
     void draw() const {
-        //>>
         if (profileFinder.size()) {
             // uncomment this line for debugging
             profileFinder.draw();
@@ -66,7 +58,6 @@ public:
 //            if (leftEarFinder.size()) drawEar(leftEarFinder);
 //            if (rightEarFinder.size()) drawEar(rightEarFinder);
         }
-        //>>
     }
     void drawEar(ofxCv::ObjectFinder earFinder) const {
         ofRectangle ear = earFinder.getObject(0);
@@ -119,14 +110,12 @@ public:
     ofImage blownupMouth;
     EarDetector ear;
     
-    //>>
     ofImage img;
     ofPixels pixels;
     ofxPanel gui;
     ofParameter<int> radius;
     ofParameter<bool> useGaussian;
 
-    //>>
     Highpass hp;
     ofImage filtered;
     ofParameter<float> size, contrast;
